@@ -8,7 +8,7 @@
   --blur: blur(12px);
 }
 
-/* Body */
+
 body {
   background: var(--bg-main);
   color: var(--text);
