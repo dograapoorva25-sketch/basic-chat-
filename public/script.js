@@ -2,9 +2,7 @@ const socket = io({
   transports: ["websocket"]
 });
 
-/* ======================
-   PASSWORD SYSTEM
-====================== */
+
 
 const COMMON_PASSWORD = "chat123";
 
@@ -25,9 +23,7 @@ loginBtn.addEventListener("click", () => {
   joinContainer.classList.remove("hidden");
 });
 
-/* ======================
-   CHAT CODE (UNCHANGED)
-====================== */
+
 
 const joinBtn = document.getElementById("join-btn");
 const sendBtn = document.getElementById("send-btn");
@@ -48,7 +44,7 @@ joinBtn.addEventListener("click", () => {
   chatContainer.classList.remove("hidden");
 });
 
-// Send message
+
 sendBtn.addEventListener("click", sendMessage);
 messageInput.addEventListener("keypress", e => {
   if (e.key === "Enter") sendMessage();
@@ -62,7 +58,7 @@ function sendMessage() {
   messageInput.value = "";
 }
 
-// Receive messages
+
 socket.on("message", data => {
   addMessage(`${data.user}: ${data.text}`);
 });
