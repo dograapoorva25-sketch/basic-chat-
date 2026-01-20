@@ -1,106 +1,32 @@
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+:root {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-chat: #020617;
+  --bg-message: #1e40af;
+  --primary: #38bdf8;
+  --text: #f8fafc;
 }
 
 body {
-  background: #1e1e2f;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  background: var(--bg-main);
+  color: var(--text);
 }
 
-.hidden {
-  display: none;
+.card,
+.sidebar,
+#input-area {
+  background: var(--bg-card);
 }
 
-/* Cards */
-.card {
-  background: #2a2a4a;
-  padding: 30px;
-  width: 320px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.card input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  border: none;
-}
-
-.card button {
-  width: 100%;
-  padding: 12px;
-  background: #4f7cff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* Chat Layout */
 .chat-layout {
-  width: 90vw;
-  height: 85vh;
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 25%;
-  background: #2a2a4a;
-  padding: 15px;
-}
-
-/* Chat Area */
-.chat-area {
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-}
-
-#messages {
-  flex: 1;
-  padding: 15px;
-  overflow-y: auto;
+  background: var(--bg-chat);
 }
 
 .message {
-  background: #3b3b5f;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
+  background: var(--bg-message);
 }
 
-/* Input */
-#input-area {
-  display: flex;
-  padding: 10px;
-  background: #2a2a4a;
-}
-
-#message-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-}
-
+button,
 #send-btn {
-  margin-left: 10px;
-  padding: 10px 18px;
-  background: #4f7cff;
-  color: white;
-  border: none;
-  border-radius: 6px;
+  background: var(--primary);
 }
