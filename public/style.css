@@ -1,7 +1,7 @@
 /* ===== Global Styles ===== */
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background: #f0f2f5;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -11,91 +11,18 @@ body {
 
 /* ===== Containers ===== */
 #login, #chatroom {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  width: 350px;
-  transition: all 0.3s ease;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 300px;
 }
 
-#chatroom { 
-  display: none; 
+#chatroom {
+  display: none;
 }
 
 /* ===== Headings ===== */
 h2 {
   margin-top: 0;
-  font-size: 1.4rem;
-  color: #333;
-  text-align: center;
-}
-
-/* ===== Inputs ===== */
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease;
-}
-
-input:focus {
-  border-color: #007BFF;
-  outline: none;
-}
-
-/* ===== Buttons ===== */
-button {
-  width: 100%;
-  padding: 12px;
-  background: #007BFF;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-/* ===== Messages Box ===== */
-#messages {
-  border: 1px solid #e0e0e0;
-  height: 250px;
-  overflow-y: auto;
-  margin-bottom: 12px;
-  padding: 10px;
-  background: #fafafa;
-  border-radius: 6px;
-}
-
-/* ===== Individual Message ===== */
-.msg {
-  margin: 6px 0;
-  padding: 8px 10px;
-  background: #e9f0f9;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  color: #333;
-  word-wrap: break-word;
-}
-
-/* ===== Scrollbar Styling ===== */
-#messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-#messages::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
-}
-
-#messages::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
+  font-size:
