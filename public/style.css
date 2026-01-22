@@ -9,20 +9,96 @@ body {
   height: 100vh;
 }
 
-/* ===== Containers ===== */
+/* ===== Shared Container Styles ===== */
 #login, #chatroom {
   background: #fff;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  width: 300px;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 320px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-#chatroom {
-  display: none;
+/* ===== Login Form ===== */
+#login {
+  display: block; /* visible first */
 }
 
-/* ===== Headings ===== */
-h2 {
+#login h2 {
   margin-top: 0;
-  font-size:
+  text-align: center;
+  color: #333;
+}
+
+#login input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#login button {
+  width: 100%;
+  padding: 10px;
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#login button:hover {
+  background: #0056b3;
+}
+
+/* ===== Chatroom ===== */
+#chatroom {
+  display: none; /* hidden until login succeeds */
+}
+
+#chatroom h2 {
+  text-align: center;
+  margin-top: 0;
+  color: #333;
+}
+
+#messages {
+  border: 1px solid #ccc;
+  height: 220px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: #fafafa;
+  border-radius: 4px;
+}
+
+.msg {
+  margin: 6px 0;
+  padding: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+#messageInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#chatroom button {
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#chatroom button:hover {
+  background: #1e7e34;
+}
