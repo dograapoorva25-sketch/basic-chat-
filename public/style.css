@@ -1,104 +1,211 @@
-/* ===== Global Styles ===== */
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+/* =====================
+   Global Reset & Base
+===================== */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  color: #1f2933;
 }
 
-/* ===== Shared Container Styles ===== */
-#login, #chatroom {
-  background: #fff;
-  padding: 25px;
+/* =====================
+   Utility Classes
+===================== */
+.hidden {
+  display: none;
+}
+
+/* =====================
+   Card Layout (Login / Join)
+===================== */
+.card {
+  background: #ffffff;
+  width: 360px;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 320px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
 }
 
-/* ===== Login Form ===== */
-#login {
-  display: block; /* visible first */
+.card input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
-#login h2 {
-  margin-top: 0;
-  text-align: center;
-  color: #333;
-}
-
-#login input {
+.card button {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#login button {
-  width: 100%;
-  padding: 10px;
-  background: #007BFF;
-  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
-  border-radius: 4px;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-#login button:hover {
-  background: #0056b3;
+.card button:hover {
+  background: #4338ca;
 }
 
-/* ===== Chatroom ===== */
-#chatroom {
-  display: none; /* hidden until login succeeds */
+#join-error {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #dc2626;
 }
 
-#chatroom h2 {
-  text-align: center;
-  margin-top: 0;
-  color: #333;
+/* =====================
+   Chat Layout
+===================== */
+.chat-layout {
+  background: #ffffff;
+  width: 90%;
+  max-width: 1100px;
+  height: 85vh;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  display: flex;
+  overflow: hidden;
 }
 
-#messages {
-  border: 1px solid #ccc;
-  height: 220px;
+/* =====================
+   Sidebar
+===================== */
+.sidebar {
+  width: 260px;
+  background: #111827;
+  color: #f9fafb;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#users {
+  flex: 1;
   overflow-y: auto;
-  margin-bottom: 10px;
-  padding: 8px;
-  background: #fafafa;
-  border-radius: 4px;
 }
 
-.msg {
-  margin: 6px 0;
-  padding: 8px;
-  background: #e9ecef;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-#messageInput {
-  width: 100%;
-  padding: 10px;
+#users div {
+  padding: 10px 12px;
   margin-bottom: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-#chatroom button {
-  width: 100%;
-  padding: 10px;
-  background: #28a745;
-  color: #fff;
+/* =====================
+   Chat Area
+===================== */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+}
+
+/* Messages */
+#messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#messages div {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  max-width: 70%;
+  font-size: 14px;
+}
+
+/* =====================
+   Input Area
+===================== */
+#input-area {
+  display: flex;
+  padding: 15px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+#message-input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+#message-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+#send-btn {
+  margin-left: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
   border: none;
-  border-radius: 4px;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-#chatroom button:hover {
-  background: #1e7e34;
+#send-btn:hover {
+  background: #4338ca;
+}
+
+/* =====================
+   Responsive Design
+===================== */
+@media (max-width: 768px) {
+  .chat-layout {
+    flex-direction: column;
+    height: 90vh;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 150px;
+  }
+
+  #messages div {
+    max-width: 100%;
+  }
 }
