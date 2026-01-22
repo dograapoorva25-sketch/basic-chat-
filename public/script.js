@@ -1,34 +1,7 @@
-const socket = io({
-  transports: ["websocket"]
-});
+const socket = io(); 
 
-/* ======================
-   PASSWORD SYSTEM
-====================== */
-
-const COMMON_PASSWORD = "sharma";
-
-const loginContainer = document.getElementById("login-container");
 const joinContainer = document.getElementById("join-container");
 const chatContainer = document.getElementById("chat-container");
-
-const loginBtn = document.getElementById("login-btn");
-const loginPass = document.getElementById("login-pass");
-
-loginBtn.addEventListener("click", () => {
-  if (loginPass.value !== COMMON_PASSWORD) {
-    alert("❌ Wrong password");
-    return;
-  }
-
-  loginContainer.classList.add("hidden");
-  joinContainer.classList.remove("hidden");
-});
-
-/* ======================
-   CHAT CODE (UNCHANGED)
-====================== */
-
 const joinBtn = document.getElementById("join-btn");
 const sendBtn = document.getElementById("send-btn");
 
@@ -38,18 +11,27 @@ const messagesDiv = document.getElementById("messages");
 const usersDiv = document.getElementById("users");
 const joinError = document.getElementById("join-error");
 
+//Load message history for new joiners.
+socket.on("message_history", messages => {
+  messagesDiv.innerHTML = "";
+  messages.forEach(msg => {
+    addMessage(`${msg.username}: ${msg.text}`);
+  });
+});
+
+
 // Join chat
-joinBtn.addEventListener("click", () => {
+joinBtn.onclick = () => {
   const username = usernameInput.value.trim();
   if (!username) return;
 
   socket.emit("join", username);
   joinContainer.classList.add("hidden");
   chatContainer.classList.remove("hidden");
-});
+};
 
 // Send message
-sendBtn.addEventListener("click", sendMessage);
+sendBtn.onclick = sendMessage;
 messageInput.addEventListener("keypress", e => {
   if (e.key === "Enter") sendMessage();
 });
