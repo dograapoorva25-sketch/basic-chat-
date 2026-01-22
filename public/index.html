@@ -1,47 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Chat App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Simple Chat Room</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- PASSWORD -->
-  <div id="login-container" class="card">
-    <h2>🔐 Enter Password</h2>
-    <input id="login-pass" type="password" placeholder="Password" />
-    <button id="login-btn">Next</button>
-  </div>
+<div id="login">
+  <h2>Enter Chat Room</h2>
+  <input type="text" id="username" placeholder="Enter your name">
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="login()">Join</button>
+</div>
 
-  <!-- NAME -->
-  <div id="join-container" class="card hidden">
-    <h2>👤 Enter Your Name</h2>
-    <input id="username" placeholder="Your name" />
-    <button id="join-btn">Enter Chat</button>
-    <p id="join-error"></p>
-  </div>
+<div id="chatroom">
+  <h2>Chat Room</h2>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Type a message">
+  <button onclick="sendMessage()">Send</button>
+</div>
 
-  <!-- CHAT -->
-  <div id="chat-container" class="hidden chat-layout">
-
-    <div class="sidebar">
-      <h3>Online Users</h3>
-      <div id="users"></div>
-    </div>
-
-    <div class="chat-area">
-      <div id="messages"></div>
-
-      <div id="input-area">
-        <input id="message-input" placeholder="Type a message..." />
-        <button id="send-btn">Send</button>
-      </div>
-    </div>
-
-  </div>
-
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
