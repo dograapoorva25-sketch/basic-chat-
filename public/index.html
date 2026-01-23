@@ -2,46 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chat App</title>
+  <title>Realtime Chat App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- PASSWORD SCREEN -->
-  <div id="login-container" class="card">
-    <h2>🔐 Enter Password</h2>
-    <input id="login-pass" type="password" placeholder="Common Password" />
-    <button id="login-btn">Enter</button>
-  </div>
+  <!-- APP WRAPPER -->
+  <div id="app">
 
-  <!-- JOIN SCREEN -->
-  <div id="join-container" class="card hidden">
-    <h2>💬 Join Chat</h2>
-    <input id="username" placeholder="Enter your name" />
-    <button id="join-btn">Join</button>
-    <p id="join-error"></p>
-  </div>
+    <!-- AUTH OVERLAY -->
+    <div id="auth-screen">
 
-  <!-- CHAT SCREEN -->
-  <div id="chat-container" class="hidden chat-layout">
+      <!-- PASSWORD CARD -->
+      <div class="auth-card" id="password-card">
+        <h1>🔐 Secure Chat</h1>
+        <input type="password" id="login-pass" placeholder="Enter common password" />
+        <button id="login-btn">Continue</button>
+      </div>
 
-    <div class="sidebar">
-      <h3>Online Users</h3>
-      <div id="users"></div>
+      <!-- USERNAME CARD -->
+      <div class="auth-card hidden" id="username-card">
+        <h1>👋 Welcome</h1>
+        <input type="text" id="username" placeholder="Choose a username" />
+        <button id="join-btn">Join Chat</button>
+        <p id="join-error"></p>
+      </div>
+
     </div>
 
-    <div class="chat-area">
-      <div id="messages"></div>
+    <!-- CHAT SCREEN -->
+    <div id="chat-screen" class="hidden">
 
-      <div id="input-area">
-        <input id="message-input" placeholder="Type a message..." />
-        <button id="send-btn">Send</button>
+      <!-- TOP BAR -->
+      <header class="top-bar">
+        <h2>💬 Global Chat</h2>
+        <span id="online-count">0 online</span>
+      </header>
+
+      <!-- MAIN LAYOUT -->
+      <div class="chat-layout">
+
+        <!-- USER LIST -->
+        <aside class="user-panel">
+          <h3>🟢 Online</h3>
+          <ul id="users"></ul>
+        </aside>
+
+        <!-- CHAT SECTION -->
+        <main class="chat-panel">
+
+          <!-- MESSAGES -->
+          <div id="messages" class="message-list"></div>
+
+          <!-- INPUT AREA -->
+          <div class="message-input-area">
+            <input 
+              type="text" 
+              id="message-input" 
+              placeholder="Type your message..."
+            />
+            <button id="send-btn">➤</button>
+          </div>
+
+        </main>
+
       </div>
     </div>
 
   </div>
 
+  <!-- SOCKET -->
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script src="script.js"></script>
+
 </body>
 </html>
