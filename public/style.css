@@ -1,27 +1,22 @@
 /* RESET */
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #e9efff, #f7f9fc);
+  background: #f2f4f7;
 }
 
-/* UTIL */
-.hidden {
-  display: none;
-}
-
-/* ================= LOGIN ================= */
-.card {
+/* ================= LOGIN PAGE ================= */
+.login-page {
   width: 360px;
   padding: 30px;
-  background: #fff;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 
   position: absolute;
   top: 50%;
@@ -29,94 +24,66 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.card input {
+.login-page input {
   width: 100%;
   padding: 12px;
   margin-bottom: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
 }
 
-.card input:focus {
-  outline: none;
-  border-color: #4a90e2;
-}
-
-.card button {
+.login-page button {
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 6px;
   background: #4a90e2;
-  color: #fff;
-  font-size: 15px;
+  color: white;
+  border: none;
   cursor: pointer;
 }
 
-.card button:hover {
-  background: #357abd;
-}
-
-.error {
-  margin-top: 10px;
-  color: #d9534f;
-  text-align: center;
-}
-
-/* ================= CHAT ================= */
-.chat {
-  display: flex;
+/* ================= CHAT PAGE ================= */
+#chat-container {
+  display: none;   /* 🔥 VERY IMPORTANT */
   height: 100vh;
 }
 
-/* CHAT BOX */
-.chat-box {
+#chat-container.active {
+  display: flex;
+}
+
+/* LEFT CHAT */
+.chat-left {
   flex: 3;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: #fff;
+  background: white;
 }
 
-.messages {
+#messages {
   flex: 1;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   padding: 10px;
   overflow-y: auto;
-  background: #fafafa;
-}
-
-.message {
-  margin-bottom: 6px;
-}
-
-.message.system {
-  color: #888;
-  font-style: italic;
 }
 
 /* INPUT */
-.input-row {
+.chat-input {
   display: flex;
   margin-top: 10px;
 }
 
-.input-row input {
+.chat-input input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px 0 0 6px;
 }
 
-.input-row button {
+.chat-input button {
   padding: 10px 16px;
-  border: none;
-  background: #4a90e2;
-  color: white;
-  border-radius: 0 6px 6px
+}
+
+/* RIGHT USERS */
+.chat-right {
+  flex: 1;
+  padding: 20px;
+  background: #f7f9fc;
+  border-left: 1px solid #ddd;
+}
