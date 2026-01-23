@@ -1,141 +1,54 @@
-const socket = io();
+document.getElementById("loginBtn").addEventListener("click", login);
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
 
-/* =====================
-   SCREEN ELEMENTS
-===================== */
-const authScreen = document.getElementById("auth-screen");
-const passwordCard = document.getElementById("password-card");
-const usernameCard = document.getElementById("username-card");
-const chatScreen = document.getElementById("chat-screen");
+let currentUser = null;
 
-/* =====================
-   AUTH ELEMENTS
-===================== */
-const loginBtn = document.getElementById("login-btn");
-const loginPass = document.getElementById("login-pass");
+async function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-const joinBtn = document.getElementById("join-btn");
-const usernameInput = document.getElementById("username");
-const joinError = document.getElementById("join-error");
+  const response = await fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
 
-/* =====================
-   CHAT ELEMENTS
-===================== */
-const sendBtn = document.getElementById("send-btn");
-const messageInput = document.getElementById("message-input");
-const messagesDiv = document.getElementById("messages");
-const usersList = document.getElementById("users");
-const onlineCount = document.getElementById("online-count");
+  const data = await response.json();
+  const msg = document.getElementById("loginMsg");
 
-/* =====================
-   PAGE 1 → PASSWORD
-===================== */
-loginBtn.onclick = () => {
-  const pass = loginPass.value.trim();
-  if (!pass) return;
-
-  // simple front-end check (backend can also verify)
-  if (pass === "1234") {
-    passwordCard.classList.add("hidden");
-    usernameCard.classList.remove("hidden");
+  if (data.success) {
+    currentUser = username;
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("chatbox").style.display = "block";
   } else {
-    alert("Wrong password");
+    msg.textContent = data.message;
   }
-};
-
-/* =====================
-   PAGE 2 → USERNAME
-===================== */
-joinBtn.onclick = () => {
-  const username = usernameInput.value.trim();
-  if (!username) return;
-
-  socket.emit("join", username);
-
-  authScreen.classList.add("hidden");
-  chatScreen.classList.remove("hidden");
-};
-
-/* =====================
-   SEND MESSAGE
-===================== */
-sendBtn.onclick = sendMessage;
-
-messageInput.addEventListener("keypress", e => {
-  if (e.key === "Enter") sendMessage();
-});
-
-function sendMessage() {
-  const msg = messageInput.value.trim();
-  if (!msg) return;
-
-  socket.emit("message", msg);
-  messageInput.value = "";
 }
 
-/* =====================
-   RECEIVE MESSAGE
-===================== */
-socket.on("message", data => {
-  addMessage(`${data.user}: ${data.text}`);
-});
+async function sendMessage() {
+  const input = document.getElementById("messageInput");
+  const text = input.value.trim();
+  if (!text) return;
 
-/* =====================
-   MESSAGE HISTORY
-===================== */
-socket.on("message_history", messages => {
-  messagesDiv.innerHTML = "";
-  messages.forEach(msg => {
-    addMessage(`${msg.username}: ${msg.text}`);
-  });
-});
+  displayMessage(currentUser, text, "user");
 
-/* =====================
-   USER EVENTS
-===================== */
-socket.on("user_joined", username => {
-  addSystemMessage(`${username} joined`);
-});
-
-socket.on("user_left", username => {
-  addSystemMessage(`${username} left`);
-});
-
-/* =====================
-   USERS LIST
-===================== */
-socket.on("users_list", users => {
-  usersList.innerHTML = "";
-  users.forEach(user => {
-    const li = document.createElement("li");
-    li.textContent = user;
-    usersList.appendChild(li);
+  const response = await fetch("http://localhost:3000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user: currentUser, message: text })
   });
 
-  onlineCount.textContent = `${users.length} online`;
-});
+  const data = await response.json();
+  displayMessage("Server", data.reply, "server");
 
-/* =====================
-   ROOM FULL
-===================== */
-socket.on("room_full", msg => {
-  joinError.textContent = msg;
-});
-
-/* =====================
-   HELPERS
-===================== */
-function addMessage(text) {
-  const div = document.createElement("div");
-  div.className = "message";
-  div.textContent = text;
-  messagesDiv.appendChild(div);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  input.value = "";
 }
 
-function addSystemMessage(text) {
+function displayMessage(sender, text, type) {
+  const messages = document.getElementById("messages");
   const div = document.createElement("div");
-  div.className = "message system";
-  div.textContent = text;
-  messagesDiv.appendChild(div);
+  div.className = "message " + type;
+  div.textContent = sender + ": " + text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
