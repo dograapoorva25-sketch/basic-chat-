@@ -2,40 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polling Chat App</title>
-  <link rel="stylesheet" href="style.css"> <!-- your CSS file -->
+  <title>Chat App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Join/Login Section -->
-    <div id="join-container">
-      <h2>Join Chat</h2>
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <button id="join-btn">Join</button>
-      <div id="join-error" class="error"></div>
-    </div>
+  <!-- Join Page -->
+  <div id="join-container">
+    <h2>Login to Chat</h2>
+    <input id="username" type="text" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button id="join-btn">Join</button>
+    <p id="join-error" class="error"></p>
+  </div>
 
-    <!-- Chat Section (hidden until login success) -->
-    <div id="chat-container" class="hidden">
-      <div class="chat-header">
-        <h2>Chat Room</h2>
-        <div id="users">Users (0/6):</div>
-      </div>
+  <!-- Chat Page -->
+  <div id="chat-container" class="hidden">
+    <div id="users"></div>
+    <div id="messages" class="messages"></div>
 
-      <div id="messages" class="messages">
-        <!-- Messages will be appended here -->
-      </div>
-
-      <div class="chat-input">
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button id="send-btn">Send</button>
-      </div>
+    <div class="input-area">
+      <input id="message-input" type="text" placeholder="Type a message...">
+      <button id="send-btn">Send</button>
     </div>
   </div>
 
-  <!-- Your existing script -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="client.js"></script>
 </body>
