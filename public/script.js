@@ -1,88 +1,128 @@
-const correctPassword = "chatbox7"; 
-let user = "";
+// ======================
+// SOCKET CONNECTION (POLLING ONLY)
+// ======================
+const socket = io({
+  transports: ["polling"],   // 🔥 websocket bilkul band
+  upgrade: false
+});
 
-function login() {
-  const name = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value;
+console.log("Client script loaded");
 
-  if (!name) {
-    alert("Please enter your name");
+// ======================
+// ELEMENTS
+// ======================
+const joinContainer = document.getElementById("join-container");
+const chatContainer = document.getElementById("chat-container");
+
+const joinBtn = document.getElementById("join-btn");
+const sendBtn = document.getElementById("send-btn");
+
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+const messageInput = document.getElementById("message-input");
+
+const messagesDiv = document.getElementById("messages");
+const usersDiv = document.getElementById("users");
+const joinError = document.getElementById("join-error");
+
+// ======================
+// JOIN CHAT
+// ======================
+joinBtn.addEventListener("click", () => {
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  if (!username || !password) {
+    joinError.textContent = "❌ Username & password required";
     return;
   }
-  if (pass !== correctPassword) {
-    alert("Incorrect password!");
-    return;
-  }
 
-  user = name;
-  document.getElementById("login").style.display = "none";
-  document.getElementById("chatroom").style.display = "block";
-}
+  joinError.textContent = "⏳ Connecting...";
+  socket.emit("join", { username, password });
+});
+
+// ======================
+// SERVER RESPONSES
+// ======================
+socket.on("connect", () => {
+  console.log("Connected to server:", socket.id);
+});
+
+socket.on("auth_error", msg => {
+  joinError.textContent = "❌ " + msg;
+});
+
+socket.on("room_full", msg => {
+  joinError.textContent = msg;
+});
+
+socket.on("connect_error", err => {
+  joinError.textContent = "Connection error: " + err.message;
+});
+
+// ✅ LOGIN SUCCESS
+socket.on("message_history", history => {
+  // show chat
+  joinContainer.classList.add("hidden");
+  chatContainer.classList.remove("hidden");
+
+  messagesDiv.innerHTML = "";
+
+  history.forEach(m => {
+    addMessage(`${m.username}: ${m.text}`);
+  });
+});
+
+// ======================
+// SEND MESSAGE
+// ======================
+sendBtn.addEventListener("click", sendMessage);
+messageInput.addEventListener("keypress", e => {
+  if (e.key === "Enter") sendMessage();
+});
 
 function sendMessage() {
-  const input = document.getElementById("messageInput");
-  const text = input.value.trim();
-  if (!text) return;
+  const msg = messageInput.value.trim();
+  if (!msg) return;
 
-  const msgBox = document.createElement("div");
-  msgBox.className = "msg";
-  msgBox.textContent = user + ": " + text;
-
-  document.getElementById("messages").appendChild(msgBox);
-  input.value = "";
-  input.focus();
+  socket.emit("message", msg);
+  messageInput.value = "";
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+// ======================
+// RECEIVE EVENTS
+// ======================
+socket.on("message", data => {
+  addMessage(`${data.user}: ${data.text}`);
+});
+
+socket.on("user_joined", username => {
+  addSystemMessage(`${username} joined`);
+});
+
+socket.on("user_left", username => {
+  addSystemMessage(`${username} left`);
+});
+
+socket.on("users_list", users => {
+  usersDiv.textContent = `Users (${users.length}/6): ${users.join(", ")}`;
+});
+
+// ======================
+// HELPERS
+// ======================
+function addMessage(text) {
+  const div = document.createElement("div");
+  div.className = "message";
+  div.textContent = text;
+  messagesDiv.appendChild(div);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-#login, #chatroom {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
-}
-
-#chatroom { display: none; }
-
-input {
-  width: 80%;
-  padding:8px;
-  margin: 6px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  width: 80%;
-  padding: 10px;
-  background: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:hover { background: #0056b3; }
-
-#messages {
-  border: 1px solid #ccc;
-  height: 200px;
-  overflow-y: auto;
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
-.msg {
-  margin: 5px 0;
-  padding: 5px;
-  background: #e9ecef;
-  border-radius: 4px;
+function addSystemMessage(text) {
+  const div = document.createElement("div");
+  div.className = "message system";
+  div.textContent = text;
+  messagesDiv.appendChild(div);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
