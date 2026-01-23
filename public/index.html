@@ -1,48 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Private Chat App</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="center">
 
-  <!-- BACKGROUND IMAGE SECTION -->
+<div class="card">
+  <h2>Login</h2>
 
-    <!-- JOIN / LOGIN SCREEN -->
-    <div id="join-container" class="card">
-      <h2>🔐 Private Chat Login</h2>
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
 
-      <input id="username" placeholder="Username" />
-      <input id="password" type="password" placeholder="Password" />
+  <button onclick="go()">Join</button>
+  <p id="err"></p>
+</div>
 
-      <button id="join-btn">Join Chat</button>
-      <p id="join-error"></p>
-    </div>
+<script>
+function go() {
+  const u = username.value;
+  const p = password.value;
 
-    <!-- CHAT SCREEN -->
-    <div id="chat-container" class="hidden chat-layout">
+  if (!u || !p) {
+    err.innerText = "Fill all fields";
+    return;
+  }
 
-      <div class="sidebar">
-        <h3>Online Users</h3>
-        <div id="users"></div>
-      </div>
+  localStorage.setItem("username", u);
+  localStorage.setItem("password", p);
+  location.href = "chat.html";
+}
+</script>
 
-      <div class="chat-area">
-        <div id="messages"></div>
-
-        <div id="input-area">
-          <input id="message-input" placeholder="Type a message..." />
-          <button id="send-btn">Send</button>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- SOCKET.IO -->
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-  <script src="script.js"></script>
 </body>
-</html>,/]
+</html>
