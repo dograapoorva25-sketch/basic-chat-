@@ -1,5 +1,5 @@
 {
-  "name": "chatbox-auth",
+  "name": "chat-backend",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5"
+    "socket.io": "^4.7.2",
+    "pg": "^8.11.3"
   }
 }
