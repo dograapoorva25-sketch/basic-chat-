@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chatbox</title>
+  <title>Simple Chat Room</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="chatbox">
-    <div id="messages"></div>
-    <div id="inputArea">
-      <input type="text" id="messageInput" placeholder="Type a message...">
-      <button id="sendBtn">Send</button>
-    </div>
-  </div>
-  <script src="script.js"></script>
+
+<div id="login">
+  <h2>Enter Chat Room</h2>
+  <input type="text" id="username" placeholder="Enter your name">
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="login()">Join</button>
+</div>
+
+<div id="chatroom">
+  <h2>Chat Room</h2>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Type a message">
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
