@@ -1,75 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Private Chat App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- APP HEADER -->
-  <header class="app-header">
-    <h1>💬 Private Chat</h1>
-    <span class="status">Secure • Real-time</span>
-  </header>
-
-  <!-- LOGIN / JOIN -->
-  <main id="join-container" class="card">
-    <h2>🔐 Login</h2>
-
-    <div class="form-group">
-      <input id="username" placeholder="Username" autocomplete="username" />
+  <!-- Join/Login Container -->
+  <div id="join-container" class="container">
+    <h1>🔐 Secure Chat</h1>
+    <div class="form">
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="join-btn">Join Chat</button>
+      <p id="join-error" class="error"></p>
     </div>
+  </div>
 
-    <div class="form-group">
-      <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
-    </div>
+  <!-- Chat Container -->
+  <div id="chat-container" class="container hidden">
+    <header class="chat-header">
+      <h2>💬 Chat Room</h2>
+      <div id="users" class="users-list">Users (0/6):</div>
+    </header>
 
-    <button id="join-btn" class="primary-btn">Join Chat</button>
-    <p id="join-error" class="error-text"></p>
-  </main>
+    <main id="messages" class="messages"></main>
 
-  <!-- CHAT APP -->
-  <section id="chat-container" class="hidden chat-layout">
+    <footer class="chat-footer">
+      <input type="text" id="message-input" placeholder="Type a message..." />
+      <button id="send-btn">Send</button>
+    </footer>
+  </div>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h3>🟢 Online Users</h3>
-      <ul id="users" class="user-list">
-        <!-- users injected here -->
-      </ul>
-    </aside>
-
-    <!-- CHAT AREA -->
-    <section class="chat-area">
-
-      <!-- CHAT HEADER -->
-      <div class="chat-header">
-        <h3>Global Chat</h3>
-      </div>
-
-      <!-- MESSAGES -->
-      <div id="messages" class="messages">
-        <!-- messages injected here -->
-      </div>
-
-      <!-- INPUT -->
-      <div id="input-area" class="input-area">
-        <input
-          id="message-input"
-          placeholder="Type a message..."
-          autocomplete="off"
-        />
-        <button id="send-btn" class="primary-btn">Send</button>
-      </div>
-
-    </section>
-  </section>
-
-  <!-- SOCKET.IO -->
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-  <script src="script.js"></script>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
 </body>
 </html>
