@@ -1,53 +1,66 @@
+/* GENERAL */
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background: #f2f4f7;
 }
 
-#login, #chatroom {
-  background: white;
-  padding: 30px;
+/* LOGIN PAGE */
+.login-page {
+  width: 350px;
+  margin: 120px auto;
+  padding: 25px;
+  background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
 }
 
-#chatroom { display: none; }
-
-input {
-  width: 80%;
-  padding:8px;
-  margin: 6px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  width: 80%;
+.login-page input {
+  width: 100%;
   padding: 10px;
-  background: #007BFF;
+  margin: 10px 0;
+}
+
+.login-page button {
+  width: 100%;
+  padding: 10px;
+  background: #3498db;
   color: white;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
 }
 
-button:hover { background: #0056b3; }
-
-#messages {
-  border: 1px solid #ccc;
-  height: 200px;
-  overflow-y: auto;
-  margin-bottom: 10px;
-  padding: 5px;
+/* CHAT PAGE */
+.chat-page {
+  display: none; /* 🔥 HIDDEN ON LOGIN PAGE */
+  height: 100vh;
 }
 
-.msg {
-  margin: 5px 0;
-  padding: 5px;
-  background: #e9ecef;
-  border-radius: 4px;
+/* CHAT + USERS LAYOUT */
+.chat-page {
+  display: flex;
+}
+
+/* CHAT BOX */
+.chat-box {
+  flex: 3;
+  padding: 20px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+}
+
+/* ONLINE USERS */
+.online-users {
+  flex: 1;
+  padding: 20px;
+  background: #fafafa;
+}
+
+.online-users h3 {
+  margin-top: 0;
+}
+
+/* UTILITY */
+.hide {
+  display: none;
 }
