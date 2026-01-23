@@ -1,39 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Private Chat</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ================= LOGIN ================= -->
-  <div id="join-container" class="card">
-    <h2>🔒 Private Chat Login</h2>
+  <!-- 🔐 LOGIN PAGE -->
+  <div id="join-container" class="login-page">
+    <h2>Enter Chat Room</h2>
 
-    <input id="username" type="text" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
+    <input id="username" placeholder="Enter your name">
+    <input id="password" type="password" placeholder="Enter password">
 
-    <button id="join-btn">Join Chat</button>
-
-    <p id="join-error" class="error"></p>
+    <button id="join-btn">Join</button>
+    <p id="join-error"></p>
   </div>
 
-  <!-- ================= CHAT ================= -->
-  <div id="chat-container" class="chat hidden">
+  <!-- 💬 CHAT PAGE -->
+  <div id="chat-container">
+    
+    <div class="chat-left">
+      <div id="messages"></div>
 
-    <!-- CHAT AREA -->
-    <div class="chat-box">
-      <div id="messages" class="messages"></div>
-
-      <div class="input-row">
-        <input id="message-input" type="text" placeholder="Type a message...">
+      <div class="chat-input">
+        <input id="message-input" placeholder="Type a message">
         <button id="send-btn">Send</button>
       </div>
     </div>
 
-    <!-- USERS -->
-    <div class="users-box">
+    <div class="chat-right">
       <h3>Online Users</h3>
       <div id="users"></div>
     </div>
