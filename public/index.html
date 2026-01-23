@@ -3,36 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Chat</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Polling Chat App</title>
+  <link rel="stylesheet" href="style.css"> <!-- your CSS file -->
 </head>
 <body>
-  <!-- Join/Login Container -->
-  <div id="join-container" class="container">
-    <h1>🔐 Secure Chat</h1>
-    <div class="form">
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button id="join-btn">Join Chat</button>
-      <p id="join-error" class="error"></p>
+  <div class="container">
+    <!-- Join/Login Section -->
+    <div id="join-container">
+      <h2>Join Chat</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="join-btn">Join</button>
+      <div id="join-error" class="error"></div>
+    </div>
+
+    <!-- Chat Section (hidden until login success) -->
+    <div id="chat-container" class="hidden">
+      <div class="chat-header">
+        <h2>Chat Room</h2>
+        <div id="users">Users (0/6):</div>
+      </div>
+
+      <div id="messages" class="messages">
+        <!-- Messages will be appended here -->
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-btn">Send</button>
+      </div>
     </div>
   </div>
 
-  <!-- Chat Container -->
-  <div id="chat-container" class="container hidden">
-    <header class="chat-header">
-      <h2>💬 Chat Room</h2>
-      <div id="users" class="users-list">Users (0/6):</div>
-    </header>
-
-    <main id="messages" class="messages"></main>
-
-    <footer class="chat-footer">
-      <input type="text" id="message-input" placeholder="Type a message..." />
-      <button id="send-btn">Send</button>
-    </footer>
-  </div>
-
+  <!-- Your existing script -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="client.js"></script>
 </body>
