@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <!-- ================= JOIN SCREEN ================= -->
+  <!-- JOIN SCREEN -->
   <div id="join-container" class="card">
     <h2>🔐 Join Chat</h2>
 
@@ -30,12 +30,11 @@
     <div id="join-error" class="error"></div>
   </div>
 
-  <!-- ================= CHAT SCREEN ================= -->
-  <!-- ⚠️ HIDDEN BY DEFAULT -->
+  <!-- CHAT SCREEN (hidden by default) -->
   <div id="chat-container" class="chat hidden">
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar hidden" id="sidebar">
       <h3>Online</h3>
       <div id="users"></div>
     </div>
@@ -57,10 +56,8 @@
 
   </div>
 
-  <!-- ================= SCRIPTS ================= -->
-  <!-- socket.io client -->
+  <!-- SCRIPTS -->
   <script src="/socket.io/socket.io.js"></script>
-  <!-- client JS -->
   <script src="script.js"></script>
 
 </body>
