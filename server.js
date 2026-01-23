@@ -33,11 +33,13 @@ const { Server } = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 
+// 🔥 IMPORTANT: POLLING ONLY (Render friendly)
 const io = new Server(server, {
-  transports: ["websocket", "polling"],
-  cors: {
-    origin: "*"
-  }
+  transports: ["polling"],
+  allowUpgrades: false,
+  cors: { origin: "*" },
+  pingInterval: 25000,
+  pingTimeout: 60000
 });
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -45,6 +47,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+// =====================
+// FIXED USERS (ID + PASSWORD)
+// =====================
+const allowedUsers = {
+  akhil: "007",
+  apoorva: "015",
+  aman: "000",
+  himanshu: "106"
+};
 
 // =====================
 // Chat state
@@ -56,47 +68,75 @@ const MAX_USERS = 6;
 // Socket.IO logic
 // =====================
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  console.log("Connected:", socket.id, "PID:", process.pid);
 
-  if (users.size >= MAX_USERS) {
-    socket.emit("room_full", "Chat room is full (max 6 users)");
-    socket.disconnect();
-    return;
-  }
+  socket.on("join", async ({ username, password }) => {
+    try {
+      // ❌ Not allowed
+      if (!allowedUsers[username]) {
+        socket.emit("auth_error", "You are not allowed");
+        return socket.disconnect();
+      }
 
-  socket.on("join", async (username) => {
-    users.set(socket.id, username);
+      // ❌ Wrong password
+      if (allowedUsers[username] !== password) {
+        socket.emit("auth_error", "Wrong password");
+        return socket.disconnect();
+      }
 
-    socket.broadcast.emit("user_joined", username);
-    io.emit("users_list", Array.from(users.values()));
+      // ❌ Already online
+      if ([...users.values()].includes(username)) {
+        socket.emit("auth_error", "User already online");
+        return socket.disconnect();
+      }
 
-    // Load last 50 messages
-    const { rows } = await pool.query(
-      `SELECT username, text, created_at
-       FROM messages
-       ORDER BY created_at ASC
-       LIMIT 50`
-    );
+      // ❌ Room full
+      if (users.size >= MAX_USERS) {
+        socket.emit("room_full", "Chat room is full (max 6 users)");
+        return socket.disconnect();
+      }
 
-    socket.emit("message_history", rows);
+      // ✅ SUCCESS
+      users.set(socket.id, username);
+      console.log("JOIN:", username);
+
+      socket.broadcast.emit("user_joined", username);
+      io.emit("users_list", Array.from(users.values()));
+
+      // Send message history
+      const { rows } = await pool.query(`
+        SELECT username, text, created_at
+        FROM messages
+        ORDER BY created_at ASC
+        LIMIT 50
+      `);
+
+      socket.emit("message_history", rows);
+    } catch (err) {
+      console.error("Join error:", err);
+    }
   });
 
   socket.on("message", async (msg) => {
     const username = users.get(socket.id);
     if (!username) return;
 
-    const result = await pool.query(
-      `INSERT INTO messages (username, text)
-       VALUES ($1, $2)
-       RETURNING created_at`,
-      [username, msg]
-    );
+    try {
+      const result = await pool.query(
+        `INSERT INTO messages (username, text)
+         VALUES ($1, $2)
+         RETURNING created_at`,
+        [username, msg]
+      );
 
-    io.emit("message", {
-      user: username,
-      text: msg,
-      time: result.rows[0].created_at
-    });
+      io.emit("message", {
+        user: username,
+        text: msg,
+        time: result.rows[0].created_at
+      });
+    } catch (err) {
+      console.error("Message error:", err);
+    }
   });
 
   socket.on("disconnect", () => {
@@ -107,7 +147,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("user_left", username);
     io.emit("users_list", Array.from(users.values()));
 
-    console.log("User disconnected:", socket.id);
+    console.log("LEFT:", username);
   });
 });
 
@@ -122,7 +162,7 @@ const PORT = process.env.PORT || 3000;
     await initDB();
 
     server.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log("Server running on port", PORT);
     });
   } catch (err) {
     console.error("Startup error:", err);
