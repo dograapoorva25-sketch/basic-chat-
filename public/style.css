@@ -1,53 +1,122 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
   height: 100vh;
+  background: linear-gradient(135deg, #e9efff, #f7f9fc);
 }
 
-#login, #chatroom {
-  background: white;
+/* UTIL */
+.hidden {
+  display: none;
+}
+
+/* ================= LOGIN ================= */
+.card {
+  width: 360px;
   padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#chatroom { display: none; }
+.card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-input {
-  width: 80%;
-  padding:8px;
-  margin: 6px 0;
+.card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  font-size: 14px;
 }
 
-button {
-  width: 80%;
-  padding: 10px;
-  background: #007BFF;
-  color: white;
+.card input:focus {
+  outline: none;
+  border-color: #4a90e2;
+}
+
+.card button {
+  width: 100%;
+  padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  background: #4a90e2;
+  color: #fff;
+  font-size: 15px;
   cursor: pointer;
 }
 
-button:hover { background: #0056b3; }
+.card button:hover {
+  background: #357abd;
+}
 
-#messages {
-  border: 1px solid #ccc;
-  height: 200px;
+.error {
+  margin-top: 10px;
+  color: #d9534f;
+  text-align: center;
+}
+
+/* ================= CHAT ================= */
+.chat {
+  display: flex;
+  height: 100vh;
+}
+
+/* CHAT BOX */
+.chat-box {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: #fff;
+}
+
+.messages {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 10px;
   overflow-y: auto;
-  margin-bottom: 10px;
-  padding: 5px;
+  background: #fafafa;
 }
 
-.msg {
-  margin: 5px 0;
-  padding: 5px;
-  background: #e9ecef;
-  border-radius: 4px;
+.message {
+  margin-bottom: 6px;
 }
+
+.message.system {
+  color: #888;
+  font-style: italic;
+}
+
+/* INPUT */
+.input-row {
+  display: flex;
+  margin-top: 10px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+}
+
+.input-row button {
+  padding: 10px 16px;
+  border: none;
+  background: #4a90e2;
+  color: white;
+  border-radius: 0 6px 6px
