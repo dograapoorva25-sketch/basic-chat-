@@ -1,36 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Private Chat</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="center">
+<body>
 
-<div class="card">
-  <h2>Login</h2>
+  <!-- JOIN SCREEN -->
+  <div id="join-container" class="card">
+    <h2>🔐 Join Chat</h2>
 
-  <input id="username" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
+    <input
+      type="text"
+      id="username"
+      placeholder="Username"
+      autocomplete="off"
+    />
 
-  <button onclick="go()">Join</button>
-  <p id="err"></p>
-</div>
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      autocomplete="off"
+    />
 
-<script>
-function go() {
-  const u = username.value;
-  const p = password.value;
+    <button id="join-btn">Join</button>
 
-  if (!u || !p) {
-    err.innerText = "Fill all fields";
-    return;
-  }
+    <div id="join-error" class="error"></div>
+  </div>
 
-  localStorage.setItem("username", u);
-  localStorage.setItem("password", p);
-  location.href = "chat.html";
-}
-</script>
+  <!-- CHAT SCREEN -->
+  <div id="chat-container" class="chat hidden">
+
+    <div class="sidebar">
+      <h3>Online</h3>
+      <div id="users"></div>
+    </div>
+
+    <div class="chat-main">
+      <div id="messages" class="messages"></div>
+
+      <div class="input-area">
+        <input
+          type="text"
+          id="message-input"
+          placeholder="Type message..."
+          autocomplete="off"
+        />
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- socket.io client -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- your script.js -->
+  <script src="script.js"></script>
 
 </body>
 </html>
