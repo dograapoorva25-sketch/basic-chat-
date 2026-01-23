@@ -1,95 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Realtime Chat App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Chatbox</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div id="app">
-
-  <!-- =====================
-       LANDING SCREEN
-  ====================== -->
-  <div id="landing-screen" class="center-screen">
-    <h1>💬 Real-Time Chat Bot</h1>
-    <p>
-      Login and enter username & password <br>
-      to open real chat bot
-    </p>
-    <button id="start-btn">Start Chat</button>
-  </div>
-
-  <!-- =====================
-       AUTH SCREEN
-  ====================== -->
-  <div id="auth-screen" class="hidden">
-
-    <!-- PASSWORD CARD -->
-    <div class="auth-card" id="password-card">
-      <h1>🔐 Secure Login</h1>
-      <input 
-        type="password" 
-        id="login-pass" 
-        placeholder="Enter common password"
-      />
-      <button id="login-btn">Continue</button>
-    </div>
-
-    <!-- USERNAME CARD -->
-    <div class="auth-card hidden" id="username-card">
-      <h1>👋 Welcome</h1>
-      <input 
-        type="text" 
-        id="username" 
-        placeholder="Choose a username"
-      />
-      <button id="join-btn">Join Chat</button>
-      <p id="join-error"></p>
-    </div>
-
-  </div>
-
-  <!-- =====================
-       CHAT SCREEN
-  ====================== -->
-  <div id="chat-screen" class="hidden">
-
-    <header class="top-bar">
-      <h2>💬 Global Chat</h2>
-      <span id="online-count">0 online</span>
-    </header>
-
-    <div class="chat-layout">
-
-      <aside class="user-panel">
-        <h3>🟢 Online</h3>
-        <ul id="users"></ul>
-      </aside>
-
-      <main class="chat-panel">
-
-        <div id="messages" class="message-list"></div>
-
-        <div class="message-input-area">
-          <input 
-            type="text" 
-            id="message-input" 
-            placeholder="Type your message..."
-          />
-          <button id="send-btn">➤</button>
-        </div>
-
-      </main>
-
+  <div id="chatbox">
+    <div id="messages"></div>
+    <div id="inputArea">
+      <input type="text" id="messageInput" placeholder="Type a message...">
+      <button id="sendBtn">Send</button>
     </div>
   </div>
-
-</div>
-
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
