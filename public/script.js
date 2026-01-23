@@ -2,6 +2,7 @@
 // SOCKET CONNECTION (POLLING ONLY)
 // ======================
 const socket = io({
+  transports: ["polling"],   // 🔥 websocket bilkul band
   upgrade: false
 });
 
@@ -59,23 +60,24 @@ socket.on("connect_error", err => {
   joinError.textContent = "Connection error: " + err.message;
 });
 
-// ======================
-// ✅ LOGIN SUCCESS → NEXT PAGE
-// ======================
+// ✅ LOGIN SUCCESS
 socket.on("message_history", history => {
-  // save data for next page
-  sessionStorage.setItem("username", usernameInput.value.trim());
-  sessionStorage.setItem("history", JSON.stringify(history));
+  // show chat
+  joinContainer.classList.add("hidden");
+  chatContainer.classList.remove("hidden");
 
-  // redirect to chat page
-  window.location.href = "/chat.html";
+  messagesDiv.innerHTML = "";
+
+  history.forEach(m => {
+    addMessage(`${m.username}: ${m.text}`);
+  });
 });
 
 // ======================
 // SEND MESSAGE
 // ======================
-sendBtn?.addEventListener("click", sendMessage);
-messageInput?.addEventListener("keypress", e => {
+sendBtn.addEventListener("click", sendMessage);
+messageInput.addEventListener("keypress", e => {
   if (e.key === "Enter") sendMessage();
 });
 
