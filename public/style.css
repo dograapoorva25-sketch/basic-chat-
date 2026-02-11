@@ -1,8 +1,7 @@
 /* ======================
    Global Styles
 ====================== */
-body {
-   body {
+ body {
   margin: 0;
   height: 100vh;
   background-image: url("https://github.com/dograapoorva25-sketch/basic-chat-/blob/main/public/Add%20a%20heading.png?raw=true");
@@ -12,7 +11,7 @@ body {
 }
 
   
-}
+
 
 h2, h3 {
   margin: 0 0 10px;
