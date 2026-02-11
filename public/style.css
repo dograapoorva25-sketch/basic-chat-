@@ -2,14 +2,10 @@
    Global Styles
 ====================== */
 body {
- margins:0;
- height:100vh;
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serifZ
-  background-image: url("https://github.com/dograapoorva25-sketch/basic-chat-/blob/main/public/Add%20a%20heading.png?raw=true");
-  background-size: 1200px 100px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+ 
+  <img src="https://github.com/dograapoorva25-sketch/basic-chat-/blob/main/public/Add%20a%20heading.png?raw=true" 
+     style="width:100%; height:100vh; object-fit:cover; margin:0; display:block;">
+
 
   margin: 0;
   padding: 0;
