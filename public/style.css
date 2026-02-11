@@ -3,7 +3,12 @@
 ====================== */
 body {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-image:url("C:\Users\apoor\OneDrive\Desktop\Apoorva\Project internship\New folder\Add a heading.png");
+  background-image: url("C:\Users\apoor\OneDrive\Desktop\Apoorva\Project internship\New folder\Add a heading.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
   margin: 0;
   padding: 0;
   color: #000000;
